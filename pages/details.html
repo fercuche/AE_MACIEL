@@ -1,12 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" href="../assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/styles/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Amazing Events</title>
 </head>
+
 <body>
-    
+    <nav class="navbar navbar-expand-lg navbar-expand-md nav-details">
+        <div class="container-fluid">
+            <img class="navbar-brand" src="../assets/img/Logo_Amazing_Events.png" alt="amazing events logo" width="200">
+            <button class="navbar-toggler ms-auto custom-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbar-items" aria-controls="navbarNavAltMarkup" aria-label="navbar-items">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbar-items">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./upcoming_events.html">Upcoming Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./past_events.html">Past Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Stats</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container-fluid my-5 d-flex justify-content-center details">
+            <div class="card flex-lg-row flex-xl-row mx-5 rounded-0 overflow-hidden align-items-center" id="details">
+                <img src="/assets/img/Marathon.jpg" class="details-img p-2" alt="...">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Event name</h2>
+                    <ul class="card-text list-unstyled">
+                        <li class="text-center fst-italic">Date</li>
+                        <li>Description Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi nisi, enim
+                            ipsam quisquam quam soluta amet nemo aperiam voluptatibus, dolores nostrum. Omnis tempora,
+                            exercitationem atque non eos culpa rem</li>
+                        <li>-Category</li>
+                        <li>-Place</li>
+                        <li>-Capacity</li>
+                        <li>-Assistance</li>
+                        <li class="text-center text-white fw-bolder bg-danger rounded-3">Price <span>$00000</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="d-flex fixed-bottom py-2 justify-content-between">
+        <div class="social d-flex align-items-center">
+            <img class="social-icon mx-3" src="../assets/img/insta.png" alt="instagram logo">
+            <img class="social-icon mx-3" src="../assets/img/fb.png" alt="facebook logo">
+            <img class="social-icon mx-3" src="/assets/img/icone-logo-whatsapp-vert.png" alt="whatsapp logo">
+        </div>
+        <h5 class="d-flex fw-bolder text-footer m-0 px-3 align-items-center text-white">FE06[TN]</h5>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
