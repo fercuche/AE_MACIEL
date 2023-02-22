@@ -37,6 +37,12 @@ body {
 
 /*Hero*/
 
+/*Main*/
+
+main {
+    min-height: 87%;
+}
+
 /*Search Bar*/
 
 /*Cards*/
@@ -89,7 +95,23 @@ footer {
 
 /* Media Queries*/
 
-@media screen and (max-width:769px) {
+@media screen and (max-width: 1440px) {
+
+    main {
+        min-height: 76vh !important;
+    }
+}
+
+
+@media screen and (max-width: 1024px) {
+
+    main {
+        min-height: 73vh !important;
+    }
+    
+}
+
+@media screen and (max-width:789px) {
 
     main {
         height: auto !important;
@@ -130,7 +152,7 @@ footer {
     }
 }
 
-@media screen and (max-width:426px) {
+@media screen and (max-width:425px) {
 
     .cards, .search-box{
         flex-direction: column !important;
