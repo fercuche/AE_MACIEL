@@ -32,3 +32,27 @@ function printPastEvents(array, cards) {
 }
 
 printPastEvents(events, cards)
+
+/*Display category checkboxes*/
+
+const checkboxFragment = document.createDocumentFragment();
+
+let checkboxes = document.getElementById("category-checkbox")
+
+let categories = Array.from(new Set(events.map(element => element.category)))
+console.log(categories)
+
+function displayCategories(array, checkboxes) {
+    array.forEach(category => {
+        let categoryDiv = document.createElement('div');
+        categoryDiv.className = "form-check form-check-inline"
+        categoryDiv.innerHTML += `
+                    <input class="form-check-input" type="checkbox" id="${category}" value="${category}">
+                    <label class="form-check-label category-label" for="${category}">${category}</label>
+                    `
+        checkboxFragment.appendChild(categoryDiv);
+    })
+    checkboxes.appendChild(checkboxFragment)
+}
+
+displayCategories(categories, checkboxes)
