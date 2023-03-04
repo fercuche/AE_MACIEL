@@ -19,7 +19,7 @@ function printEvents(array, cards) {
                 <p class="card-text">${event.category}</p>
                 <p class="fw-bold">Price $${event.price}</p>
                 <div class="price d-flex justify-content-center">
-                    <a class="btn btn-danger" href="/pages/details.html"> Read more</a>
+                    <a class="btn btn-danger" href="/pages/details.html?id=${event._id}">Read more</a>
                 </div>
             </div>
             `
