@@ -25,12 +25,21 @@ div.innerHTML = `<div class="card flex-lg-row flex-xl-row mx-5 rounded-2 overflo
         <li class="text-center fst-italic">${eventDate}</li>
         <li class="badge fs-medium bg-info m-1">${eventDetail.category}</li>
         <li class="text-start p-1">${eventDetail.description}</li>
-        <li class="h3 fw-bolder m-1 text-center">$${eventDetail.price}</li>
-        <li class="m-1">Place: ${eventDetail.place}</li>
-        <li class="m-1">Capacity: ${eventDetail.capacity}</li>
+        <li class="m-1"><i class="bi bi-geo-alt-fill text-danger"></i> ${eventDetail.place}</li>
+        <li class="m-1"><i class="bi bi-people-fill text-primary"></i> Capacity ${eventDetail.capacity}</li>
+        <li class="h3 fw-bolder my-2 text-center">$${eventDetail.price}</li>
     </ul>
 </div>
 </div>`
+
+/*Return button*/
+
+const returnButton = document.getElementById('returnButton');
+
+returnButton.addEventListener('click', () => {
+  window.history.back();
+});
+
 
 
 
