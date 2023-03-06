@@ -28,7 +28,7 @@ function printEvents(array, cards) {
     cards.appendChild(cardFragment)
 }
 
-    printEvents(events, cards)
+printEvents(events, cards)
 
 /*Display category checkboxes*/
 const checkboxFragment = document.createDocumentFragment();
@@ -42,7 +42,7 @@ function displayCategories(array, checkboxes) {
         let categoryDiv = document.createElement('div');
         categoryDiv.className = "form-check form-check-inline"
         categoryDiv.innerHTML += `
-                    <input class="form-check-input" type="checkbox" id="${category}" value="${category}">
+                    <input class="form-check-input" type="checkbox" id="${category}" value="${category}" name="${category}">
                     <label class="form-check-label category-label" for="${category}">${category}</label>
                     `
         checkboxFragment.appendChild(categoryDiv);
@@ -51,16 +51,30 @@ function displayCategories(array, checkboxes) {
 }
 displayCategories(categories, checkboxes)
 
-/*Search Box Input*/
+/*Search Box Filter*/
 
 const searchBox = document.getElementById("search-box")
 
 function searchEvent() {
     const query = searchBox.value.toLowerCase();
-
     const filteredEvents = events.filter(event => event.name.toLowerCase().includes(query))
     printEvents(filteredEvents, cards)
     console.log(filteredEvents)
 }
 
-searchBox.addEventListener('keyup',searchEvent);
+searchBox.addEventListener('keyup', searchEvent);
+
+/*Checkboxes Filter*/
+
+const checkedCheckboxes = document.querySelectorAll('input[type=checkbox]')
+
+function filteredCheckbox(){
+let checked = document.querySelectorAll('input[type=checkbox]:checked')
+let checkedValues = [...checked].map(checkbox => checkbox.value.toLowerCase())
+console.log(checkedValues)
+let filteredChecked = events.filter(event => checkedValues.indexOf(event.category.toLowerCase()) !== -1)
+console.log(filteredChecked)
+printEvents(filteredChecked,cards)
+}
+
+checkboxes.addEventListener('change', filteredCheckbox)
