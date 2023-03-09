@@ -1,12 +1,11 @@
-
-const cardFragment = document.createDocumentFragment();
-
 let events = data.events;
 let currentDate = data.currentDate;
-
-console.log(events);
-
+const cardFragment = document.createDocumentFragment();
 let cards = document.getElementById("cards")
+const checkboxFragment = document.createDocumentFragment();
+let checkboxes = document.getElementById("category-checkbox")
+let categories = Array.from(new Set(events.map(element => element.category)))
+
 
 function printPastEvents(array, cards) {
     for (let event of array) {
@@ -34,12 +33,6 @@ function printPastEvents(array, cards) {
 printPastEvents(events, cards)
 
 /*Display category checkboxes*/
-
-const checkboxFragment = document.createDocumentFragment();
-
-let checkboxes = document.getElementById("category-checkbox")
-
-let categories = Array.from(new Set(events.map(element => element.category)))
 console.log(categories)
 
 function displayCategories(array, checkboxes) {
@@ -56,3 +49,4 @@ function displayCategories(array, checkboxes) {
 }
 
 displayCategories(categories, checkboxes)
+

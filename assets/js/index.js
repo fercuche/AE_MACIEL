@@ -1,15 +1,18 @@
-
-const cardFragment = document.createDocumentFragment();
-
+/*agregr todos los elementos con $ arriba de todo*/
 let events = data.events;
 
-console.log(events);
-
+const checkedCheckboxes = document.querySelectorAll('input[type=checkbox]')
+const searchBox = document.getElementById("search-box")
 let cards = document.getElementById("cards")
+const checkboxFragment = document.createDocumentFragment();
+let checkboxes = document.getElementById("category-checkbox")
+const cardFragment = document.createDocumentFragment();
+let categories = Array.from(new Set(events.map(element => element.category)))
+///tambien se puede usar el spread operator [...new Set()] en lugar de array from
 
 function printEvents(array, cards) {
     cards.innerHTML = ""
-    for (let event of array) {
+    array.forEach(event => {
         let divCard = document.createElement('div');
         divCard.className = "card border-0 mx-1 mt-3 rounded-1 overflow-hidden"
         divCard.innerHTML += `
@@ -24,18 +27,12 @@ function printEvents(array, cards) {
             </div>
             `
         cardFragment.appendChild(divCard)
-    }
+    })
     cards.appendChild(cardFragment)
 }
-
 printEvents(events, cards)
 
 /*Display category checkboxes*/
-const checkboxFragment = document.createDocumentFragment();
-
-let checkboxes = document.getElementById("category-checkbox")
-
-let categories = Array.from(new Set(events.map(element => element.category)))
 
 function displayCategories(array, checkboxes) {
     array.forEach(category => {
@@ -53,28 +50,61 @@ displayCategories(categories, checkboxes)
 
 /*Search Box Filter*/
 
-const searchBox = document.getElementById("search-box")
-
-function searchEvent() {
-    const query = searchBox.value.toLowerCase();
-    const filteredEvents = events.filter(event => event.name.toLowerCase().includes(query))
-    printEvents(filteredEvents, cards)
-    console.log(filteredEvents)
+const searchFilter = (array) => {
+    let filteredArray = array.filter(event => event.name.toLowerCase().includes(searchBox.value.toLowerCase().trim()))
+    console.log(filteredArray)
+    if (filteredArray > 1) {
+        return array
+    } else {
+        return filteredArray
+    }
 }
 
-searchBox.addEventListener('keyup', searchEvent);
+searchBox.addEventListener('keyup', (e) => {
+    let crossArray = crossFilter(events)
+    if (crossArray < 1) {
+        const div = document.querySelector('#cards')
+        div.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title text-white text-center">Nothing found 404</h5>
+            </div>
+            `
+    } else {
+        printEvents(crossArray, cards)
+    }
+})
 
-/*Checkboxes Filter*/
+/*Checkbox filter*/
 
-const checkedCheckboxes = document.querySelectorAll('input[type=checkbox]')
-
-function filteredCheckbox(){
-let checked = document.querySelectorAll('input[type=checkbox]:checked')
-let checkedValues = [...checked].map(checkbox => checkbox.value.toLowerCase())
-console.log(checkedValues)
-let filteredChecked = events.filter(event => checkedValues.indexOf(event.category.toLowerCase()) !== -1)
-console.log(filteredChecked)
-printEvents(filteredChecked,cards)
+const checkboxFilter = (array) => {
+    let checked = document.querySelectorAll('input[type=checkbox]:checked')
+    let checkedValues = [...checked].map(checkbox => checkbox.value.toLowerCase())
+    console.log(checkedValues)
+    let filteredArray = array.filter(event => checkedValues.indexOf(event.category.toLowerCase()) !== -1)
+    if (filteredArray < 1) {
+        return array
+    } else {
+        return filteredArray
+    }
 }
 
-checkboxes.addEventListener('change', filteredCheckbox)
+checkboxes.addEventListener('change', (e) => {
+    let crossArray = crossFilter(events)
+    if (crossArray < 1) {
+        const div = document.querySelector('#cards')
+        div.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title text-white text-center">Nothing found 404</h5>
+            </div>
+            `
+    } else {
+        printEvents(crossArray, cards)
+    }
+})
+
+/*Cross Filter*/
+function crossFilter(array) {
+    let crossArray = checkboxFilter(array)
+    crossArray = searchFilter(crossArray)
+    return crossArray
+}
