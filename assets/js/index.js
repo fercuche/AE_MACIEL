@@ -18,8 +18,8 @@ function printEvents(array, cards) {
             <img src="${event.image}" class=" card-img-top" alt="card image">
             <div class="card-body">
                 <h5 class="card-title">${event.name}</h5>
-                <p class="card-text">${event.category}</p>
-                <p class="fw-bold">Price $${event.price}</p>
+                <p class="badge fs-medium bg-info m-0">${event.category}</p>
+                <p class="fw-bold mb-2 mt-2">Price $${event.price}</p>
                 <div class="price d-flex justify-content-center">
                     <a class="btn btn-danger" href="/pages/details.html?id=${event._id}">Read more</a>
                 </div>
