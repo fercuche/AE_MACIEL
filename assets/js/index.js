@@ -1,12 +1,11 @@
 /*agregr todos los elementos con $ arriba de todo*/
 let events = data.events;
-
+let cards = document.getElementById("cards")
+const cardFragment = document.createDocumentFragment();
+const checkboxFragment = document.createDocumentFragment();
 const checkedCheckboxes = document.querySelectorAll('input[type=checkbox]')
 const searchBox = document.getElementById("search-box")
-let cards = document.getElementById("cards")
-const checkboxFragment = document.createDocumentFragment();
 let checkboxes = document.getElementById("category-checkbox")
-const cardFragment = document.createDocumentFragment();
 let categories = Array.from(new Set(events.map(element => element.category)))
 ///tambien se puede usar el spread operator [...new Set()] en lugar de array from
 
@@ -66,7 +65,7 @@ searchBox.addEventListener('keyup', (e) => {
         const div = document.querySelector('#cards')
         div.innerHTML = `
             <div class="card-body">
-                <h5 class="card-title text-white text-center">Nothing found 404</h5>
+                <h5 class="card-title text-white text-center">Nothing found</h5>
             </div>
             `
     } else {
@@ -94,7 +93,7 @@ checkboxes.addEventListener('change', (e) => {
         const div = document.querySelector('#cards')
         div.innerHTML = `
             <div class="card-body">
-                <h5 class="card-title text-white text-center">Nothing found 404</h5>
+                <h5 class="card-title text-white text-center">Nothing found</h5>
             </div>
             `
     } else {
