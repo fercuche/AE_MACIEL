@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/styles/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Amazing Events</title>
@@ -42,25 +43,12 @@
         </div>
     </nav>
 
-    <main class="container-fluid my-5 d-flex flex-wrap justify-content-center align-content-center details" id="main-details">
-        <div class="card flex-lg-row flex-xl-row mx-5 rounded-2 overflow-hidden align-items-center" id="details">
-            <img src="https://i.postimg.cc/vH52y81C/cinema4.jpg" class="details-img" alt="...">
-            <div class="card-body">
-                <h2 class="card-title text-center">Event name</h2>
-                <ul class="card-text list-unstyled">
-                    <li class="text-center fst-italic">Date</li>
-                    <li>Description Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi nisi, enim
-                        ipsam quisquam quam soluta amet nemo aperiam voluptatibus, dolores nostrum. Omnis tempora,
-                        exercitationem atque non eos culpa rem</li>
-                    <li>-Category</li>
-                    <li>-Place</li>
-                    <li>-Capacity</li>
-                    <li>-Assistance</li>
-                    <li class="text-center text-white fw-bolder bg-danger rounded-3">Price <span>$00000</span></li>
-                </ul>
-            </div>
-        </div>
-    </main>
+    <div class="return-button">
+        <div class="btn" id="returnButton"><i class="bi bi-arrow-left fs-1 text-white"></i></div>
+    </div>
+
+    <main class="container-fluid mb-5 d-flex flex-wrap justify-content-center align-content-center details"
+        id="main-details"></main>
 
     <footer class="d-flex py-2 justify-content-between">
         <div class="social d-flex align-items-center">
@@ -74,6 +62,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+    <script src="/assets/js/amazing.js"></script>
+    <script src="/assets/js/details.js"></script>
 </body>
 
 </html>
