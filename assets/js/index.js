@@ -1,13 +1,30 @@
-/*agregr todos los elementos con $ arriba de todo*/
-let events = data.events;
+//El método "then()" también puede encadenarse con otro método "then()" para realizar operaciones
+//adicionales con el valor resuelto de la promesa original. Cada llamada al método "then()" devuelve una nueva promesa,
+//lo que permite encadenar múltiples operaciones en una sola cadena.
+import { getData } from "./functions.js";
+
+let events
+let categories
+let currentDate
 let cards = document.getElementById("cards")
 const cardFragment = document.createDocumentFragment();
 const checkboxFragment = document.createDocumentFragment();
-const checkedCheckboxes = document.querySelectorAll('input[type=checkbox]')
 const searchBox = document.getElementById("search-box")
 let checkboxes = document.getElementById("category-checkbox")
-let categories = Array.from(new Set(events.map(element => element.category)))
+//let categories = Array.from(new Set(events.map(element => element.category)))
 ///tambien se puede usar el spread operator [...new Set()] en lugar de array from
+
+getData()
+.then(data => {
+    events = data.events
+    currentDate = data.currentDate
+    console.log(events)
+    console.log(currentDate)
+    categories = Array.from(new Set(events.map(element => element.category)))
+    console.log(categories)
+    printEvents(events, cards)
+    displayCategories(categories, checkboxes)
+})
 
 function printEvents(array, cards) {
     cards.innerHTML = ""
@@ -29,7 +46,6 @@ function printEvents(array, cards) {
     })
     cards.appendChild(cardFragment)
 }
-printEvents(events, cards)
 
 /*Display category checkboxes*/
 
@@ -45,7 +61,6 @@ function displayCategories(array, checkboxes) {
     })
     checkboxes.appendChild(checkboxFragment)
 }
-displayCategories(categories, checkboxes)
 
 /*Search Box Filter*/
 

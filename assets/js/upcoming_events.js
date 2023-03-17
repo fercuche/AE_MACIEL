@@ -1,13 +1,27 @@
-let events = data.events;
-let currentDate = data.currentDate;
-let upcomingEvents = events.filter(event => event.date>currentDate)
+import { getDataPages } from "./functions.js";
+
+let events
+let currentDate
+let upcomingEvents
+let categories
 const cardFragment = document.createDocumentFragment();
 let cards = document.getElementById("cards")
 const checkboxFragment = document.createDocumentFragment();
 let checkboxes = document.getElementById("category-checkbox")
-let categories = Array.from(new Set(upcomingEvents.map(element => element.category)))
-const checkedCheckboxes = document.querySelectorAll('input[type=checkbox]')
 const searchBox = document.getElementById("search-box")
+
+getDataPages()
+.then(data => {
+    events = data.events
+    currentDate = data.currentDate
+    upcomingEvents = events.filter(event => event.date>currentDate)
+    console.log(events)
+    console.log(currentDate)
+    categories = Array.from(new Set(events.map(element => element.category)))
+    console.log(categories)
+    printUpcomingEvents(upcomingEvents, cards)
+    displayCategories(categories, checkboxes)
+})
 
 function printUpcomingEvents(array, cards) {
     cards.innerHTML = ""
@@ -30,8 +44,6 @@ function printUpcomingEvents(array, cards) {
     cards.appendChild(cardFragment)
 }
 
-printUpcomingEvents(upcomingEvents, cards)
-
 /*Display category checkboxes*/
 
 function displayCategories(array, checkboxes) {
@@ -46,7 +58,6 @@ function displayCategories(array, checkboxes) {
     })
     checkboxes.appendChild(checkboxFragment)
 }
-displayCategories(categories, checkboxes)
 
 /*Search Box Filter*/
 
@@ -78,14 +89,22 @@ searchBox.addEventListener('keyup', (e) => {
 
 const checkboxFilter = (array) => {
     let checked = document.querySelectorAll('input[type=checkbox]:checked')
+    if(checked.length == 0){
+        return array
+    } else {
     let checkedValues = [...checked].map(checkbox => checkbox.value.toLowerCase())
     console.log(checkedValues)
     let filteredArray = array.filter(event => checkedValues.indexOf(event.category.toLowerCase()) !== -1)
     if (filteredArray < 1) {
-        return array
+        const div = document.querySelector('#cards')
+        div.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title text-white text-center">Nothing found</h5>
+            </div>
+            `
     } else {
         return filteredArray
-    }
+    }}
 }
 
 checkboxes.addEventListener('change', (e) => {

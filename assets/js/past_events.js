@@ -1,14 +1,28 @@
-let events = data.events;
-let currentDate = data.currentDate;
-let pastEvents = events.filter(event => event.date<currentDate)
+import { getDataPages } from "./functions.js";
+
+let events
+let currentDate
+let categories
+let pastEvents
 const cardFragment = document.createDocumentFragment();
 let cards = document.getElementById("cards")
 const checkboxFragment = document.createDocumentFragment();
 let checkboxes = document.getElementById("category-checkbox")
-let categories = Array.from(new Set(pastEvents.map(element => element.category)))
-const checkedCheckboxes = document.querySelectorAll('input[type=checkbox]')
 const searchBox = document.getElementById("search-box")
 
+
+getDataPages()
+.then(data => {
+    events = data.events
+    currentDate = data.currentDate
+    pastEvents = events.filter(event => event.date<currentDate)
+    console.log(events)
+    console.log(currentDate)
+    categories = Array.from(new Set(events.map(element => element.category)))
+    console.log(categories)
+    printPastEvents(pastEvents, cards)
+    displayCategories(categories, checkboxes)
+})
 
 function printPastEvents(array, cards) {
     cards.innerHTML = ""
@@ -31,8 +45,6 @@ function printPastEvents(array, cards) {
     cards.appendChild(cardFragment)
 }
 
-printPastEvents(pastEvents, cards)
-
 /*Display category checkboxes*/
 
 function displayCategories(array, checkboxes) {
@@ -47,7 +59,6 @@ function displayCategories(array, checkboxes) {
     })
     checkboxes.appendChild(checkboxFragment)
 }
-displayCategories(categories, checkboxes)
 
 /*Search Box Filter*/
 

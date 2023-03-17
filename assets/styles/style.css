@@ -156,13 +156,13 @@ footer {
     }
 
     .details {
-        min-height: 74% !important;
+        min-height: 81% !important;
     }
 
     .details-img {
-        width: 50%;
+        width: 100%;
         object-fit: cover;
-        height: 60vh
+        height: 50vh
     }
 
     main {
