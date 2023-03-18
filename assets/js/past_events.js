@@ -15,7 +15,7 @@ getDataPages()
 .then(data => {
     events = data.events
     currentDate = data.currentDate
-    pastEvents = events.filter(event => event.date<currentDate)
+    pastEvents = events.filter(event => event.date < currentDate)
     console.log(events)
     console.log(currentDate)
     categories = Array.from(new Set(events.map(element => element.category)))

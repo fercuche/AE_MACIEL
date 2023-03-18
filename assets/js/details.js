@@ -1,25 +1,31 @@
-let events = data.events
+import { getDataPages } from "./functions.js";
 
+let events
+let eventDetail
 const queryString = location.search
-
 const params = new URLSearchParams(queryString)
-
 const id = params.get("id")
 
-const eventDetail = events.find(event => event._id == id)
 
 console.log(eventDetail)
+getDataPages()
+  .then(data => {
+    events = data.events
+    eventDetail = events.find(event => event._id == id)
+    let eventDate = showDate(eventDetail.date)
+    displayDetails(eventDetail, eventDate)
+  })
 
-function showDate(date){
-let eventDate = new Date(date).toUTCString()
-return eventDate.slice(5,16)
+function showDate(date) {
+  let eventDate = new Date(date).toUTCString()
+  return eventDate.slice(5, 16)
 }
-let eventDate = showDate(eventDetail.date)
-
-const div = document.querySelector('#main-details')
-div.innerHTML = `<div class="card flex-lg-row flex-xl-row mx-5 rounded-2 overflow-hidden align-items-center" id="details">
-<img src="${eventDetail.image}" class="details-img" alt="...">
-<div class="card-body">
+function displayDetails(eventDetail, eventDate) {
+    const div = document.querySelector('#main-details')
+    div.innerHTML = `
+    <div class="card flex-lg-row flex-xl-row mx-5 rounded-2 overflow-hidden align-items-center" id="details">
+    <img src="${eventDetail.image}" class="details-img" alt="...">
+    <div class="card-body">
     <h2 class="card-title text-center">${eventDetail.name}</h2>
     <ul class="card-text list-unstyled">
         <li class="text-center fst-italic">${eventDate}</li>
@@ -29,8 +35,10 @@ div.innerHTML = `<div class="card flex-lg-row flex-xl-row mx-5 rounded-2 overflo
         <li class="m-1"><i class="bi bi-people-fill text-primary"></i> Capacity ${eventDetail.capacity}</li>
         <li class="h3 fw-bolder my-2 text-center">$${eventDetail.price}</li>
     </ul>
-</div>
-</div>`
+  </div>
+  </div>
+  `
+}
 
 /*Return button*/
 
