@@ -143,9 +143,40 @@ footer {
     
 }
 
+@media screen and (max-width: 991px) {
+
+    #cards{
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: stretch;
+    }
+
+    .card{
+        width: auto;
+    }
+
+    .details {
+        min-height: 81% !important;
+    }
+
+    .details-img {
+        width: 100%;
+        object-fit: cover;
+        height: 50vh
+    }
+
+    main {
+        min-height: 73vh !important;
+    }
+    
+    
+}
+
 @media screen and (max-width:768px) {
 
-
+    #cards{
+        display: flex !important;
+    }
     .details {
         min-height: auto !important;
     }
