@@ -39,13 +39,14 @@ function calcAttendance(event) {
 
 function getLargerCapacityEvent(array) {
     let largerCapacity = 0
-    let largerCapacityEvent = []
+    let largerCapacityEvent = {}
     array.forEach(event => {
         if (event.capacity > largerCapacity) {
             largerCapacity = event.capacity
             largerCapacityEvent = event
         }
     })
+    console.log(largerCapacityEvent )
     return largerCapacityEvent.name
 }
 
@@ -82,13 +83,14 @@ function getCategoryDetails(events, eventTense) {
     const categories = {};
 
     filteredEvents.forEach(event => {
+        if(!categories[event.category]){
         categories[event.category] = {
             name: event.category,
             revenue: 0,
             attendance: 0,
             capacity: 0,
             eventCount: 0,
-        };
+        }};
 
         const attendance = event.assistance || event.estimate;
         const revenue = event.price * attendance;
@@ -97,6 +99,8 @@ function getCategoryDetails(events, eventTense) {
         categories[event.category].eventCount++;
         categories[event.category].capacity += event.capacity;
     });
+
+    console.log(categories)
 
     const categoriesArray = [];
 
@@ -110,11 +114,14 @@ function getCategoryDetails(events, eventTense) {
 
         categoriesArray.push({
             name: categories[category].name,
+            attendance: categories[category].attendance,
             revenue: revenue,
+            capacity: categories[category].capacity,
             attendancePercentage: attendancePercentage + "%",
         });
     }
     categoriesArray.sort((a, b) => a.revenue - b.revenue)
+    console.log(categoriesArray)
     return categoriesArray
 }
 
