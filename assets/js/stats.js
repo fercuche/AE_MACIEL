@@ -20,20 +20,21 @@ getDataPages()
         events = data.events
         currentDate = data.currentDate;
         categories = Array.from(new Set(events.map(element => element.category)))
-        eventsHighAttendance = events.filter(event => calcAttendance(event) >= 99)
-        eventsLowAttendance = events.filter(event => calcAttendance(event) <= 75)
+        eventsHighAttendance = events.filter(event => calcAttendance(event) > 98)
+        eventsLowAttendance = events.filter(event => calcAttendance(event) < 75)
         eventLargeCapacity = getLargerCapacityEvent(events)
         fillEventStats(eventsHighAttendance, eventsLowAttendance, eventLargeCapacity, tableEvents, tableEventFragment)
-        pastEvents = getCategoryDetails(events, "past")
+        pastEvents = categoriesStats2Array(getCategoryStats(events, "past"))
         displayCategoryStatistics(pastEvents, tablePastByCategory, upcomingByCategoryFragment)
-        upcomingEvents = getCategoryDetails(events, "upcoming")
+        upcomingEvents = categoriesStats2Array(getCategoryStats(events, "upcoming"))
         displayCategoryStatistics(upcomingEvents, tableUpcomingByCategory, pastByCategoryFragment)
     })
 
 function calcAttendance(event) {
-    let assistance = Number(event.assistance)
-    let capacity = Number(event.capacity)
+    let assistance = event.assistance
+    let capacity = event.capacity
     let attendance = (assistance / capacity) * 100
+    console.log(attendance)
     return attendance
 }
 
@@ -46,7 +47,7 @@ function getLargerCapacityEvent(array) {
             largerCapacityEvent = event
         }
     })
-    console.log(largerCapacityEvent )
+    console.log(largerCapacityEvent)
     return largerCapacityEvent.name
 }
 
@@ -78,47 +79,40 @@ function getFilteredbyTense(events, eventTense) {
     }
 }
 
-function getCategoryDetails(events, eventTense) {
+function getCategoryStats(events, eventTense) {
     let filteredEvents = getFilteredbyTense(events, eventTense)
-    const categories = {};
+    const categoriesStats = {};
 
     filteredEvents.forEach(event => {
-        if(!categories[event.category]){
-        categories[event.category] = {
-            name: event.category,
-            revenue: 0,
-            attendance: 0,
-            capacity: 0,
-            eventCount: 0,
-        }};
-
+        if (!categoriesStats[event.category]) {
+            categoriesStats[event.category] = {
+                name: event.category,
+                revenue: 0,
+                attendance: 0,
+                capacity: 0,
+                eventCount: 0,
+                attendancePercentage: ""
+            }
+        };
         const attendance = event.assistance || event.estimate;
         const revenue = event.price * attendance;
-        categories[event.category].revenue += revenue;
-        categories[event.category].attendance += attendance;
-        categories[event.category].eventCount++;
-        categories[event.category].capacity += event.capacity;
+        categoriesStats[event.category].revenue += revenue;
+        categoriesStats[event.category].attendance += attendance;
+        categoriesStats[event.category].eventCount++;
+        categoriesStats[event.category].capacity += event.capacity;
     });
+    
+    return categoriesStats
+}
 
-    console.log(categories)
+function categoriesStats2Array(categoriesStats) {
+    let categoriesArray = []
+    for (const category in categoriesStats) {
+        const attendancePercentage = ((categoriesStats[category].attendance * 100) / categoriesStats[category].capacity).toFixed(2);
+        categoriesStats[category].attendancePercentage += attendancePercentage + "%";
 
-    const categoriesArray = [];
-
-    /* Iterando a través del objeto de categorías y empujando el nombre, los ingresos y el porcentaje
-    de asistencia a las categoríasArray. */
-
-    for (const category in categories) {
-        const revenue = categories[category].revenue;
-        const attendancePercentage = ((categories[category].attendance * 100) / categories[category].capacity).toFixed(2);
-
-
-        categoriesArray.push({
-            name: categories[category].name,
-            attendance: categories[category].attendance,
-            revenue: revenue,
-            capacity: categories[category].capacity,
-            attendancePercentage: attendancePercentage + "%",
-        });
+    categoriesArray = Object.values(categoriesStats).map(({ name, revenue, attendance, capacity, attendancePercentage }) =>
+        ({ name, revenue, attendance, capacity, attendancePercentage }));
     }
     categoriesArray.sort((a, b) => a.revenue - b.revenue)
     console.log(categoriesArray)
